@@ -44,7 +44,15 @@ def predict(test,train):
     return : index of the data that has minimum error in train dataset
     Hint : error(i) = norm(train[:,i] - test)       (you can use np.linalg.norm)
     """
-    pass
+    maxS = 0 #index of most similar face
+    minErr = np.linalg.norm(train[0] - test) #initiate minimun error face
+    for i in range(0,len(train)):
+        error = np.linalg.norm(train[:,i] - test)
+        if(minErr > error):
+            minErr = error
+            maxS = i
+    return maxS
+    
 
 def plot_face(tested,predicted):
     """
