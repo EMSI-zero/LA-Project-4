@@ -22,7 +22,7 @@ def normalize(test,train):
     Hint : normalize test with train mean
     """
     # return normalized_test,normalized_train
-    pass
+    return test - np.mean(test, axis=0) , train - np.mean(train,axis=0)
 
 def svd_function(images):
     """
