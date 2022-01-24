@@ -60,7 +60,12 @@ def plot_face(tested,predicted):
     with subplot and figures that you learned in matplotlib video in the channel.
     But you are allowed to show them one by one
     """
-    pass
+    plt.subplot(1,2,1)
+    plt.plot(tested, label= "tested")
+    
+    plt.subplot(1,2,2)
+    plt.plot(predicted, label= "predicted")
+    plt.show()
 
 if __name__ == "__main__":
     true_predicts=0
