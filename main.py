@@ -36,7 +36,7 @@ def project_and_calculate_weights(img,u):
     """
     TODO : calculate element wise multiplication of img and u . (you can use numpy methods)
     """
-    pass
+    return np.multiply(img, u)
 
 def predict(test,train):
     """
