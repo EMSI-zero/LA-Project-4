@@ -22,7 +22,7 @@ def normalize(test,train):
     Hint : normalize test with train mean
     """
     # return normalized_test,normalized_train
-    return test - np.mean(test, axis=0) , train - np.mean(train,axis=0)
+    return test - np.mean(train,axis=0) , train - np.mean(train,axis=0)
 
 def svd_function(images):
     """
@@ -30,7 +30,8 @@ def svd_function(images):
     Additional(Emtiazi) todo : implement svd without using np.linalg.svd
     """
     # return None,None,None
-    pass
+    U , S , Vt = np.linalg.svd(images, full_matrices=False)
+    return U , S , Vt
 
 def project_and_calculate_weights(img,u):
     """
@@ -45,10 +46,10 @@ def predict(test,train):
     Hint : error(i) = norm(train[:,i] - test)       (you can use np.linalg.norm)
     """
     maxS = 0 #index of most similar face
-    minErr = np.linalg.norm(train[0] - test) #initiate minimun error face
-    for i in range(0,len(train)):
+    minErr = np.linalg.norm(train[0,0] - test) #initiate minimun error face
+    for i in range(0,len(train[0])):
         error = np.linalg.norm(train[:,i] - test)
-        if(minErr > error):
+        if(minErr >= error):
             minErr = error
             maxS = i
     return maxS
@@ -60,11 +61,13 @@ def plot_face(tested,predicted):
     with subplot and figures that you learned in matplotlib video in the channel.
     But you are allowed to show them one by one
     """
-    plt.subplot(1,2,1)
-    plt.plot(tested, label= "tested")
-    
-    plt.subplot(1,2,2)
-    plt.plot(predicted, label= "predicted")
+    figure = plt.figure()
+    ax = figure.add_subplot(1,2,1)
+    plt.imshow(tested, cmap="gray")
+    ax.set_title("tested")
+    ax = figure.add_subplot(1,2,2)
+    plt.imshow(predicted, cmap="gray")
+    ax.set_title("predicted")
     plt.show()
 
 if __name__ == "__main__":
