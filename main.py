@@ -8,6 +8,14 @@ FILES = os.listdir(FOLDER)
 TEST_DIR = "./Testset/"
 
 def load_images_train_and_test(TEST):
+    """loads images into matrix sets
+
+    Args:
+        TEST (str): file path
+
+    Returns:
+        np arrays: result matrices
+    """
     test=np.asarray(Image.open(TEST)).flatten()
     train=[]
     for name in FILES:
@@ -17,17 +25,28 @@ def load_images_train_and_test(TEST):
    
 def normalize(test,train):
     """
-    TODO : Normalize test and train and return them properly
-    Hint : To calculate mean properly use two arguments version of mean numpy method (https://www.javatpoint.com/numpy-mean)
-    Hint : normalize test with train mean
+    Normalize test and train and return them properly
+    
+    Args:
+        test(np array) : test set
+        train(np array): train set
+    
+    Returns:
+        np array: normalized test set
+        np array: normalized train set
     """
     # return normalized_test,normalized_train
     return test - np.mean(train,axis=0) , train - np.mean(train,axis=0)
 
 def svd_function(images):
     """
-    TODO : implement SVD (use np.linalg.svd) and return u,s,v 
-    Additional(Emtiazi) todo : implement svd without using np.linalg.svd
+    implement SVD (using np.linalg.svd) and return u,s,v 
+
+    Args:
+        images(np array): set of images
+        
+    Returns:
+        Singular Values
     """
     # return None,None,None
     U , S , Vt = np.linalg.svd(images, full_matrices=False)
@@ -35,15 +54,21 @@ def svd_function(images):
 
 def project_and_calculate_weights(img,u):
     """
-    TODO : calculate element wise multiplication of img and u . (you can use numpy methods)
+    calculate element wise multiplication of img and u 
     """
     return np.multiply(img, u)
 
 def predict(test,train):
     """
-    TODO : Find the most similar face to test among train set by calculating errors and finding the face that has minimum error
-    return : index of the data that has minimum error in train dataset
-    Hint : error(i) = norm(train[:,i] - test)       (you can use np.linalg.norm)
+    Find the most similar face to test among train set by calculating errors and finding the face that has minimum error
+    
+    Args:
+        test(np array) : test normalized set
+        train(np array) : train normalized set
+    
+    Returns :
+        index of the data that has minimum error in train dataset
+    
     """
     maxS = 0 #index of most similar face
     minErr = np.linalg.norm(train[0,0] - test) #initiate minimun error face
@@ -57,9 +82,8 @@ def predict(test,train):
 
 def plot_face(tested,predicted):
     """
-    TODO : Plot tested image and predicted image . It would be great if you show them next to each other 
-    with subplot and figures that you learned in matplotlib video in the channel.
-    But you are allowed to show them one by one
+    Plot tested image and predicted image . 
+
     """
     figure = plt.figure()
     ax = figure.add_subplot(1,2,1)
